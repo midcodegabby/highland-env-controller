@@ -12,12 +12,13 @@ for this setup.
 -Nucleo-H723ZG Reference Board
 
 #### Software:
-|-FreeRTOS Kernel
-|--Additional drivers
--IR transmission for AC
+```
+|- FreeRTOS Kernel
+|- Additional drivers
+| |-IR transmission for AC
 ----IR transmission for Humidifier
 ----Relays for pumps and valves
-----
+```
 
 ### Supported Equipment
 This system supports the following machines:
