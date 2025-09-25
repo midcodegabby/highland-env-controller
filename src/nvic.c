@@ -1,0 +1,17 @@
+/* 
+Author: Gabriel Rodgers <gabrielrodgers4i@gmail.com>
+Date: 6/5/2025
+*/
+
+#include <stdint.h>
+
+#include "stm32h723xx.h"
+#include "nvic.h"
+
+/*
+ * nvic_enable() - enable an interrupt in the NVIC
+*/
+void nvic_enable(void) {
+    NVIC->ISER[1] |= (1 << 8); //enable interrupt 40 (EXTI15_10)
+    NVIC->ISER[1] |= (1 << 6); //enable interrupt 38 (USART2 global)
+}
