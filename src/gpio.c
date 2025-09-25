@@ -7,6 +7,7 @@ Date: 6/5/2025
 
 #include "stm32h723xx.h"
 #include "gpio.h"
+#include "tcnt.h"
 
 /*
  * gpio_button_init() - enable PC13 to be used as a button
@@ -39,7 +40,39 @@ void gpio_led_init(GPIO_mode_t MODE){
 
             GPIOB->AFR[0] |= GPIO_AFRL_AFSEL0_1; //TIM3_CH3, AF2
             GPIOB->AFR[1] |= GPIO_AFRH_AFSEL14_1; //TIM12_CH2, AF2  
+
+            GPIOE->MODER &= ~(1 << 3); //output mode for PE1
             break;
+        default:
+            break;
+    }
+}
+
+/*
+ * gpio_pwm_set_duty() - A wrapper for pwm_set_duty()
+*/
+void gpio_pwm_set_duty(char port, uint8_t pin, uint8_t duty) {
+    switch(port) {
+        case('B'):
+            switch(pin) {
+                case(0):
+                    pwm_set_duty(TIMER3, duty);
+                    break;
+                case(1): case(2): case(3): case(4):
+                case(5): case(6): case(7): case(8):
+                case(9): case(10): case(11): case(12):
+                case(13):
+                    break;
+                case(14):
+                    pwm_set_duty(TIMER12, duty);
+                    break;
+                case(15):
+                default:
+                    break;
+            }
+            break;
+        case('C'):
+        case('E'):
         default:
             break;
     }

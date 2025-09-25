@@ -76,9 +76,9 @@ void timer3_blocking_delay(const uint32_t delay) {
 
 
 /*
- * timer_pwm_init() - function to set the duty cycle of a timer
+ * pwm_set_duty() - function to set the duty cycle of a timer's PWM signal
 */
-void timer_pwm_set_duty(uint8_t timer_num, uint8_t duty) {
+void pwm_set_duty(uint8_t timer_num, uint8_t duty) {
     switch(timer_num) {
         case(3):
             TIM3->CCR3 = duty;
