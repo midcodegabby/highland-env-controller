@@ -28,7 +28,6 @@ Date: 8/1/2024
 
 /* Globals */
 extern volatile char uart2_ch;
-const uint8_t pwm_max = 0xF;
 volatile button_state_t button = UNPRESSED;
 
 BaseType_t status;
@@ -50,6 +49,7 @@ static void hardware_init(void) {
 	gpio_led_init(PWM);
 	nvic_enable();
 	exti_init(); 
+
 	timer3_pwm_init();
 	timer12_pwm_init();
 	//timer3_upcount_init(); 	
@@ -81,8 +81,8 @@ void task1_handler(void *args) {
     uart2_ch = '\0';
    
     while (1) {
-        gpio_pwm_set_duty('B', 0, pwm_max);
-        gpio_pwm_set_duty('B', 14, pwm_max);
+        gpio_pwm_set_duty('B', 0, MAX_PWM_ONE_BYTE);
+        gpio_pwm_set_duty('B', 14, MAX_PWM_ONE_BYTE);
         
         printf("------------------------------------------------------------\r\n"
                "------- Highland Environment Controller Setup Wizard -------\r\n"
@@ -162,7 +162,7 @@ void vApplicationStackOverflowHook( TaskHandle_t pxTask,
         gpio_toggle('B', 0);
         gpio_toggle('E', 1);
         gpio_toggle('B', 14);
-        timer3_blocking_delay(ONE_SECOND_10KHZ/30);
+        for (volatile int i = 0; i < 10000000; i++);
 	}
     
 }

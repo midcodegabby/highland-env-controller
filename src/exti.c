@@ -20,7 +20,12 @@ extern volatile button_state_t button;
 void exti_init(void) {
     /* enable syscfg clock */
     RCC->APB4ENR |= (1 << 1); //enable SYSCFG clk
+}
 
+/*
+ * exti_user_button_init() - function to initialize exti for user button 1
+*/
+void exti_user_button_init(void) {
     SYSCFG->EXTICR[3] |= (0x2 << 4); //set EXTI line 13 to PC13
 	EXTI->EMR1 |= (1 << 13); //unmask event line 13
 	EXTI->RTSR1 |= (1 << 13); //enable rising edge trigger for line 13

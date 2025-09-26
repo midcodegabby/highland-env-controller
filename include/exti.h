@@ -9,6 +9,7 @@ Date: 6/5/2025
 #define _EXTI_H
 
 void exti_init(void);
+void exti_user_button_init(void);
 void EXTI15_10_IRQHandler(void);
 
 #endif /* _EXTI_H */

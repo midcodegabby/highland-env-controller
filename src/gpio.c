@@ -8,6 +8,7 @@ Date: 6/5/2025
 #include "stm32h723xx.h"
 #include "gpio.h"
 #include "tcnt.h"
+#include "exti.h"
 
 /*
  * gpio_button_init() - enable PC13 to be used as a button
@@ -15,9 +16,12 @@ Date: 6/5/2025
 void gpio_button_init(void){
     /* enable clocks */
     RCC->AHB4ENR |= (1 << 2); //enable GPIOC clk
-
+    
     GPIOC->MODER &= ~(0x3 << 26); //input mode for PC13
 	GPIOC->PUPDR |= (1 << 27); //pull down R for PC13
+
+    /* set up EXTI  for interrupt on button */
+    exti_user_button_init();
 }
 
 /*

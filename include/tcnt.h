@@ -8,10 +8,13 @@ Date: 6/9/2025
 #ifndef _TCNT_H
 #define _TCNT_H
 
-#define ONE_SECOND_10KHZ		(0x2710U)
+#define ONE_SECOND_TEN_KHZ 	(0x2710U)
 
 #define TIMER3              (3U)
 #define TIMER12             (12U)
+
+#define MAX_PWM_ONE_BYTE    (0xFFU)
+#define MIN_PWM_ONE_BYTE    (0x0U)
 
 void timer3_pwm_init(void);
 void timer12_pwm_init(void);

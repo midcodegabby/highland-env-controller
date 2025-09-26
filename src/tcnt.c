@@ -9,8 +9,6 @@ Date: 6/9/2025
 #include "tcnt.h"
 #include "main.h"
 
-extern uint8_t pwm_max;
-
 /*
  * timer3_pwm_init() - function to initialize timer3 for pwm
 */
@@ -23,8 +21,8 @@ void timer3_pwm_init(void) {
     TIM3->CCMR2 |= (TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3M_2); //pwm mode 1 for ch3
     TIM3->CCMR2 |= TIM_CCMR2_OC3PE; //enable preload for ch3
 
-    TIM3->ARR = pwm_max; //CNT reloads once it reaches this value
-    TIM3->CCR3 = 0x0;  //ch3 is set to 0/1 depending on if CNT is less than or greater than this value
+    TIM3->ARR = MAX_PWM_ONE_BYTE; //CNT reloads once it reaches this value
+    TIM3->CCR3 = MIN_PWM_ONE_BYTE;  //ch3 is set to 0/1 depending on if CNT is less than or greater than this value
 
     TIM3->EGR |= TIM_EGR_UG;    //update the counter registers
     TIM3->CR1 |= TIM_CR1_CEN;   //enable counter
@@ -41,8 +39,8 @@ void timer12_pwm_init(void) {
     TIM12->CCMR1 |= (TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2); //pwm mode 1 for ch1
     TIM12->CCMR1 |= TIM_CCMR1_OC1PE; //enable preload for ch1
 
-    TIM12->ARR = pwm_max; //CNT reloads once it reaches this value
-    TIM12->CCR1 = 0x0;  //ch3 is set to 0/1 depending on if CNT is less than or greater than this value
+    TIM12->ARR = MAX_PWM_ONE_BYTE; //CNT reloads once it reaches this value
+    TIM12->CCR1 = MIN_PWM_ONE_BYTE;  //ch3 is set to 0/1 depending on if CNT is less than or greater than this value
 
     TIM12->EGR |= TIM_EGR_UG;    //update the counter registers
     TIM12->CR1 |= TIM_CR1_CEN;   //enable counter
