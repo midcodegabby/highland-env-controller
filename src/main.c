@@ -87,7 +87,7 @@ void task1_handler(void *args) {
         printf("------------------------------------------------------------\r\n"
                "------- Highland Environment Controller Setup Wizard -------\r\n"
                "------------------------------------------------------------\r\n"
-               "Enter Year:\r\n");
+               "Enter Year: ");
 
         while (uart2_ch == '\0'); 
 

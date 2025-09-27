@@ -27,6 +27,7 @@
 ** This software component is licensed by ST under BSD 3-Clause license,
 ** the "License"; You may not use this file except in compliance with the
 ** License. You may obtain a copy of the License at:
+If you mean by this any variable will be located by default to DTCM you can refer to the linker file provided as template in the CubeH7 package under this link:
 **                        opensource.org/licenses/BSD-3-Clause
 **
 ****************************************************************************
@@ -41,15 +42,20 @@ _estack = 0x20020000;    /* end of RAM */
 _Min_Heap_Size = 0x200 ;      /* required amount of heap  */
 _Min_Stack_Size = 0x400 ; /* required amount of stack */
 
+/* Memory Notes: */
+
+/* See FLASH_OPTSR2_PRG register for ITCM/RAM_D1 allocations */
+/* TCM memory is not accessible via regular DMA (only via MDMA) */
+
 /* Specify the memory areas */
 MEMORY
 {
-  ITCMRAM (xrw)    : ORIGIN = 0x00000000,   LENGTH = 64K
-  RAM     (xrw)    : ORIGIN = 0x20000000,   LENGTH = 128K
-  FLASH    (rx)    : ORIGIN = 0x08000000,   LENGTH = 1024K
-  RAM_D1  (xrw)    : ORIGIN = 0x24000000,   LENGTH = 320K
-  RAM_D2  (xrw)    : ORIGIN = 0x30000000,   LENGTH = 32K
-  RAM_D3  (xrw)    : ORIGIN = 0x38000000,   LENGTH = 16K
+  ITCMRAM (xrw)    : ORIGIN = 0x00000000,   LENGTH = 64K /* ITCM RAM on AXI bus */
+  RAM     (xrw)    : ORIGIN = 0x20000000,   LENGTH = 128K /* AXI Shared SRAM */
+  FLASH    (rx)    : ORIGIN = 0x08000000,   LENGTH = 1024K /* Flash */
+  RAM_D1  (xrw)    : ORIGIN = 0x24000000,   LENGTH = 320K /* AXI SRAM (D1 Domain); MDMA is here */
+  RAM_D2  (xrw)    : ORIGIN = 0x30000000,   LENGTH = 32K /* SRAM1 + SRAM2 (D2 Domain) */
+  RAM_D3  (xrw)    : ORIGIN = 0x38000000,   LENGTH = 16K /* SRAM4 (D3 Domain) */
 }
 
 /* Define output sections */

@@ -27,3 +27,12 @@ This system supports the following machines:
 - `insert model` Humidifier
 - `insert model` Pump
 - `insert model` Valves
+
+### Memory overview
+I-cache enabled for all regions; D-cache enabled for D1 domain
+- D1 Domain should have D-cache enabled - this is where program data etc. are stored; increase performance
+    - NOTE: use WB (default), but need to invalidate/clean for each read/write to MMIO
+- D2 Domain should have D-cache disabled (RAM_D2) - no use for MMIO to use caching
+    - Use for MMIO DMA buffers: I2C, UART, Ethernet, USB, etc.
+- D3 Domain should have D-cache disabled (RAM_D3) - no use for MMIO to use caching
+    - Not a lot of need for MMIO DMA buffers, but can use for I2C4, LPUART1, etc.
